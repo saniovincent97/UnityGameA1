@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 
     public float moveSpeed;
     public Rigidbody rB;
+    public float jumpForce;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +17,10 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         rB.velocity = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, rB.velocity.y, Input.GetAxis("Vertical") * moveSpeed);
-		
+
+        if(Input.GetButtonDown("Jump"))
+        {
+            rB.velocity = new Vector3(rB.velocity.x, jumpForce, rB.velocity.z);
+        }
 	}
 }
