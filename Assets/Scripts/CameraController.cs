@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour {
 
     public Vector3 offset;
 
+    public float rotateSpeed;
+
     public bool useOffsetValues;
 
 	// Use this for initialization
@@ -22,8 +24,14 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        float horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
+        target.Rotate(0, horizontal, 0);
 
-        transform.position = target.position - offset;
+        float desiredYAngle = target.eulerAngles.y;
+        Quaternion rotation = Quaternion.Euler(0, desiredYAngle, 0);
+        transform.position = target.position - (rotation * offset);
+
+        //transform.position = target.position - offset;
 
         transform.LookAt(target);
 		
