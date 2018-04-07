@@ -5,6 +5,7 @@ using UnityEngine;
 public class CoinPickup : MonoBehaviour {
 
     public int value;
+    public AudioClip coinCollected;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +22,7 @@ public class CoinPickup : MonoBehaviour {
         if (other.tag == "Player")
         {
             FindObjectOfType<GameManager>().AddCoin(value);
+            AudioSource.PlayClipAtPoint(coinCollected, transform.position);
 
             Destroy(gameObject);
         }
