@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     public Transform pivot;
     public float rotateSpeed;
     public GameObject playerModel;
+    public AudioClip jumpSound;
 
 	// Use this for initialization
 	void Start () {
@@ -46,9 +47,12 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetButtonDown("Jump"))
             {
                 moveDirection.y = jumpForce;
+                AudioSource.PlayClipAtPoint(jumpSound, transform.position);
+
             }
 
         }
+      
 
 
         
@@ -67,6 +71,5 @@ public class PlayerController : MonoBehaviour {
         anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
 
     }
-
 
 }
