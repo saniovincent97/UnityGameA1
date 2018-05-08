@@ -51,6 +51,8 @@ public class EnemyMovement : MonoBehaviour {
     void chase()
     {
         agent.destination = player.transform.position;
+#pragma warning disable CS0618 // Type or member is obsolete
         agent.Resume();
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 }
