@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public float moveSpeed;
+    public float walkSpeed;
+    public float sprintSpeed;
     //public Rigidbody rB;
     public float jumpForce;
     public CharacterController controller;
@@ -21,6 +23,8 @@ public class PlayerController : MonoBehaviour {
     public float knockBackForce;
     public float knockBackTime;
     private float knockBackCounter;
+
+    private bool walking = true;
 
 	// Use this for initialization
 	void Start () {
@@ -57,6 +61,29 @@ public class PlayerController : MonoBehaviour {
                 }
 
             }
+
+            if (Input.GetButtonDown("Sprint"))
+            {
+                if (walking)
+                {
+                    moveSpeed = sprintSpeed;
+                    walking = false;
+                }
+                else
+                {
+                    moveSpeed = walkSpeed;
+                    walking = true;
+                }
+            }
+
+            if (walking == false)
+                anim.SetBool("Walking", false);
+
+            if (walking == true)
+                anim.SetBool("Walking", true);
+
+         
+
         } else
         {
             knockBackCounter -= Time.deltaTime;
