@@ -35,7 +35,7 @@ public class EnemyMovement : MonoBehaviour {
 
     void Update ()
     {
-        if (!agent.pathPending && agent.remainingDistance < 1f)
+        if (!agent.pathPending && agent.remainingDistance < 1.2f)
             GotoNextPoint();
 
 

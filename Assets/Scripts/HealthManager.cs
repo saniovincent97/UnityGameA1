@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HealthManager : MonoBehaviour {
 
     public int currentHealth;
+    public int enemyHealth = 100;
     public int maxHealth;
     public Text healthText;
     public PlayerController player;
@@ -59,6 +60,12 @@ public class HealthManager : MonoBehaviour {
             flashCounter = flashLength;
         }
         
+    }
+
+    public void HurtEnemy(int damage)
+    {
+        enemyHealth -= damage;
+      
     }
 
     public void HealPlayer(int healAmount)

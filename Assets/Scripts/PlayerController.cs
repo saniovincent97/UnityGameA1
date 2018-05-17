@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
     public float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
+    public float rollSpeed;
     //public Rigidbody rB;
     public float jumpForce;
     public CharacterController controller;
@@ -25,11 +26,13 @@ public class PlayerController : MonoBehaviour {
     private float knockBackCounter;
 
     private bool walking = true;
+    public Transform smoke;
 
 	// Use this for initialization
 	void Start () {
         //rB = GetComponent<Rigidbody>();
         controller = GetComponent<CharacterController>();
+        smoke.GetComponent<ParticleSystem>().enableEmission = false;
 		
 	}
 	
@@ -60,7 +63,16 @@ public class PlayerController : MonoBehaviour {
 
                 }
 
+
+                if (Input.GetButtonDown("Roll"))
+                {
+                    anim.SetTrigger("Rolling");
+                }
+                
+                
+
             }
+           
 
             if (Input.GetButtonDown("Sprint"))
             {
@@ -68,21 +80,47 @@ public class PlayerController : MonoBehaviour {
                 {
                     moveSpeed = sprintSpeed;
                     walking = false;
+                    smoke.GetComponent<ParticleSystem>().enableEmission = true;
+
                 }
                 else
                 {
                     moveSpeed = walkSpeed;
                     walking = true;
+                    smoke.GetComponent<ParticleSystem>().enableEmission = false;
+                    
                 }
             }
+
+          
+           
+            
+            
 
             if (walking == false)
                 anim.SetBool("Walking", false);
 
+
             if (walking == true)
                 anim.SetBool("Walking", true);
+                
 
-         
+
+            if (controller.velocity.magnitude == 0)
+            {
+                smoke.GetComponent<ParticleSystem>().enableEmission = false;
+            }
+
+            if (controller.velocity.magnitude > 0 && walking == false)
+            {
+                smoke.GetComponent<ParticleSystem>().enableEmission = true;
+            }
+
+            if(controller.isGrounded == false)
+            {
+                smoke.GetComponent<ParticleSystem>().enableEmission = false;
+            }
+
 
         } else
         {
@@ -104,6 +142,7 @@ public class PlayerController : MonoBehaviour {
         anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
 
     }
+
 
     public void Knockback(Vector3 direction)
     {
